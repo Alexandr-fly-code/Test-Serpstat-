@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import Search from './Search/Search';
-import Content from './Main/Main';
-import ItemPost from './MainSinglePost/MainSinglePost';
 
 import {fetchRequest} from './redux/actions/fetchRequestAction';
+import asyncCodeSplitting from './asyncCodeSplitting/asyncCodeSplitting';
+
 
 import {history} from './redux/store/store';
 import {ConnectedRouter} from 'connected-react-router';
@@ -14,7 +14,16 @@ import {Switch, Route} from 'react-router-dom';
 import './App.css';
 import './styles/reset.css';
 import './styles/var.css';
+import PacmanLoader from 'react-spinners/PacmanLoader';
 
+const AsyncSinglePost = asyncCodeSplitting({
+   loader: () => import('./MainSinglePost/MainSinglePost'),
+    loading: null,
+});
+const AsyncMain = asyncCodeSplitting({
+    loader: () => import('./Main/Main'),
+    loading: null,
+});
 
 class App extends Component {
 
@@ -29,18 +38,29 @@ class App extends Component {
         return (
 
             <div className='wrapper'>
+                {/*<AsyncMain/>*/}
 
             <ConnectedRouter history={history}>
 
                 <div className='container'>
-                    <div className='main'>
+                    <div className='mainApp'>
 
                           <Search/>
+                        {this.props.getPostReducer.length === 0 ?
+
+                        <div className='override'>
+                            <PacmanLoader
+                                sizeUnit={"px"}
+                                size={100}
+                            />
+                        </div>
+                            :
 
                             <Switch>
-                                <Route exact path='/' component={Content}/>
-                                <Route path='/card' component={ItemPost}/>
-                            </Switch>
+                            <Route exact path='/' component={AsyncMain}/>
+                            <Route path='/card' component={AsyncSinglePost}/>
+                        </Switch> }
+
 
                     </div>
 
@@ -65,8 +85,7 @@ function MDTP(dispatch){
     return {
         fetchRequest: function () {
             dispatch(fetchRequest())
-        }
-        
+        },
     }
 }
 

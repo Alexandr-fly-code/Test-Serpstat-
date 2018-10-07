@@ -21,15 +21,15 @@ const MainList = (props) => {
     const {title, body, id} = props;
 
     return ( 
-        <div className='content'>
+        <div className='mainList'>
 
             <NavLink to={`/card/${id}`}>
 
-                    <div className="artist-card" onClick={routeCard}>
+                    <div className="mainList-card" onClick={routeCard}>
                         <figure>
                              <figcaption>
-                               <p className="artist-card__name">Title : {title} </p>
-                              <p className="artist-card__number-albums">Text : {body}</p>
+                               <p className="mainList-card__name">Title : <i>{title} </i></p>
+                              <p className="mainList-card__number-albums">Text : {body}</p>
                               </figcaption>
                          </figure>
                      </div>

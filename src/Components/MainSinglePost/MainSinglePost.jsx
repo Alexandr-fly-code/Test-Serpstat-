@@ -9,12 +9,15 @@ const MainSinglePost = (props) => {
     const {moreInfoReducer} = props;
 
     return ( 
-        <div className='content'>
+        <div>
                 <MainSinglePostList
                    title={moreInfoReducer.title} 
                    comment={moreInfoReducer.comments}
                    body={moreInfoReducer.body}
                    name={moreInfoReducer.name}
+                   id={moreInfoReducer.id}
+                   key={moreInfoReducer.name}
+                   userId={moreInfoReducer.userId}
                 />
             </div>
       );

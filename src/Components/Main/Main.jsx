@@ -1,6 +1,6 @@
 import React from 'react';
 import './Main.css';
-import ItemList from './MainList/MainList';
+import MainList from './MainList/MainList';
 import {connect} from 'react-redux';
 
 
@@ -9,10 +9,10 @@ const Main = (props) => {
     const {getPostReducer} = props;
 
     return ( 
-       <div className='content'>
+       <div className='mainList'>
 
         {getPostReducer.map(el =>
-              <ItemList 
+              <MainList
 
                 title={el.title} 
                 body={el.body} 
